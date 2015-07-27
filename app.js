@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +23,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+app.get('/auth/google',
+  passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 app.use('/', routes);
 app.use('/users', users);

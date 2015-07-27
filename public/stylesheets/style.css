@@ -1,13 +1,23 @@
+
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url('http://www.winonalinks.com/wp-content/uploads/2015/05/dashboard-of-a-car.jpg');
 }
 
 a {
-  color: #00B7FF;
+  color: white;
+  padding-left: 10px;
+}
+span {
+  color: white;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
-
 div{
-  background-color: gray;
+  background-color: black;
+  opacity: .8;
+  width: 40%;
 }

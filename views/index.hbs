@@ -1,3 +1,5 @@
+
+<body class="index">
 <h1>Voice-Memo-App</h1>
 
 <div>
@@ -42,6 +44,7 @@ if ('webkitSpeechRecognition' in window) {
       }
     }
     final_transcript = capitalize(final_transcript);
+    debugger;
     final_span.innerHTML = linebreak(final_transcript);
     interim_span.innerHTML = linebreak(interim_transcript);
 
@@ -70,3 +73,4 @@ function startDictation(event) {
   interim_span.innerHTML = '';
 }
 </script>
+</body>
